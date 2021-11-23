@@ -1,9 +1,8 @@
 import { useRef, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import AddressesBar from '../AddressesBar/AddressesBar';
+import AddressesBar from '../AddressesBar';
 import { changeAddress } from '../store/reducers/reducerAddress';
 import Ymap from '../Ymap';
-
 import './App.scss';
 
 const App = ({ reducerData, changePointsAddress }) => {

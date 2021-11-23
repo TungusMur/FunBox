@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { YMaps, Map, ZoomControl } from 'react-yandex-maps';
 import сreateMultiRout from './сreateMultiRout';
+import './Ymap.scss';
 
 const mapState = {
   center: [55.755819, 37.617644],
@@ -24,7 +25,7 @@ const Ymap = ({ map, inputAddress, changePointsAddress, data }) => {
     setYmaps(e);
   }, []);
   return (
-    <div className="map">
+    <div className="ymap">
       <YMaps
         query={{
           apikey: '5664d34a-3b0b-4593-8152-842cd1ebea28',
@@ -36,8 +37,8 @@ const Ymap = ({ map, inputAddress, changePointsAddress, data }) => {
           state={mapState}
           instanceRef={map}
           onLoad={onLoad}
-          width={`inherit`}
-          height={`inherit`}
+          width={`100%`}
+          height={`100%`}
         >
           <ZoomControl />
         </Map>

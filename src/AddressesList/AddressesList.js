@@ -1,6 +1,6 @@
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useState } from 'react';
-import './Addresses.scss';
+import './AddressesList.scss';
 
 const AddressesList = ({ data, setData }) => {
   const [active, setActive] = useState('');
@@ -24,13 +24,8 @@ const AddressesList = ({ data, setData }) => {
     >
       <Droppable droppableId="characters">
         {(provided) => (
-          <div>
-            <ul
-              className={`addressList ${active}`}
-              style={{ height: 80 * data.length }}
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
+          <div className={`addressList ${active}`}>
+            <ul {...provided.droppableProps} ref={provided.innerRef}>
               {data.length
                 ? data.map(({ address }, index) => {
                     return (

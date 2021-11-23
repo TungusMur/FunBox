@@ -4,9 +4,11 @@ const сreateMultiRout = (ymaps, map, data, changePointsAddress) => {
       referencePoints: data.map(({ coordinates }) => [coordinates]),
       params: {
         routingMode: 'auto',
+        requestSendInterval: 0,
       },
     },
     {
+      preventDragUpdate: true,
       wayPointDraggable: true,
       boundsAutoApply: true,
       balloonLayout: false,
@@ -32,12 +34,14 @@ const сreateMultiRout = (ymaps, map, data, changePointsAddress) => {
   route.model.events.once('requestsuccess', () => {
     route.getWayPoints().each((point) => {
       point.events.add('dragend', () => {
+        console.log(point);
         changePointsAddress(ymaps, {
           index: point.properties.get('index'),
-          coordinates: [point.properties.get('coordinates')[1], point.properties.get('coordinates')[0]],
+          // coordinates: [point.properties.get('coordinates')[1], point.properties.get('coordinates')[0]],
+          // eslint-disable-next-line no-underscore-dangle
+          coordinates: point.geometry._coordinates,
         });
       });
-
       point.events.add('click', () => {
         map.current.balloon.open(
           [point.properties.get('coordinates')[1], point.properties.get('coordinates')[0]],

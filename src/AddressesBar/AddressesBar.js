@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import AddressesList from '../AddressesList';
+import './AddressesBar.scss';
 
 const AddressesBar = ({ inputAddress, data, setData }) => {
   const pressOnEnter = useCallback((e) => {
@@ -20,9 +21,11 @@ const AddressesBar = ({ inputAddress, data, setData }) => {
     }
   }, []);
   return (
-    <div className="addressBar">
-      <input ref={inputAddress} type="text" id="suggest" onKeyPress={pressOnEnter} />
-      <button onClick={pressOnButtonSearch}>Добавить адрес</button>
+    <div className="address">
+      <div className="addressBar">
+        <input ref={inputAddress} type="text" id="suggest" onKeyPress={pressOnEnter} />
+        <button onClick={pressOnButtonSearch}>Добавить адрес</button>
+      </div>
       <AddressesList data={data} setData={setData} />
     </div>
   );
