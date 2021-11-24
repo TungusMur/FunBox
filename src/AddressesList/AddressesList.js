@@ -1,19 +1,18 @@
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './AddressesList.scss';
 
-const AddressesList = ({ data, setData }) => {
+const AddressesList = ({ data, deleteAddress, changeAddressData }) => {
   const [active, setActive] = useState('');
 
   const handleOnDragEnd = (result) => {
-    const item = data;
-
-    const [recorderedItem] = item.splice(result.source.index, 1);
-
-    if (result.destination) item.splice(result.destination.index, 0, recorderedItem);
+    changeAddressData(data, result.source.index, result.destination ? result.destination.index : null);
     setActive('');
-    setData([...item]);
   };
+
+  useEffect(() => {
+    console.log(data.length);
+  }, [data.length]);
 
   return (
     <DragDropContext
@@ -24,7 +23,7 @@ const AddressesList = ({ data, setData }) => {
     >
       <Droppable droppableId="characters">
         {(provided) => (
-          <div className={`addressList ${active}`}>
+          <div className={`addressList ${active}`} style={{ height: `${60 * (data.length + 1)}px` }}>
             <ul {...provided.droppableProps} ref={provided.innerRef}>
               {data.length
                 ? data.map(({ address }, index) => {
@@ -35,9 +34,7 @@ const AddressesList = ({ data, setData }) => {
                             <p>{`${address}`}</p>
                             <button
                               onClick={() => {
-                                data.splice(index, 1);
-
-                                setData([...data]);
+                                deleteAddress(index);
                               }}
                             >
                               Удалить

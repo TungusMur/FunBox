@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { YMaps, Map, ZoomControl } from 'react-yandex-maps';
 import сreateMultiRout from './сreateMultiRout';
 import './Ymap.scss';
@@ -8,14 +8,16 @@ const mapState = {
   controls: [],
   zoom: 8,
 };
-const Ymap = ({ map, inputAddress, changePointsAddress, data }) => {
+const Ymap = ({ inputAddress, changeAddress, data }) => {
   const [ymaps, setYmaps] = useState(null);
+
+  const map = useRef(null);
 
   useEffect(() => {
     if (ymaps) {
       inputAddress.current.value = '';
       map.current.geoObjects.removeAll();
-      map.current.geoObjects.add(сreateMultiRout(ymaps, map, data, changePointsAddress));
+      map.current.geoObjects.add(сreateMultiRout(ymaps, map, data, changeAddress));
     }
   }, [data]);
 

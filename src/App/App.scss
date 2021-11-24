@@ -3,10 +3,25 @@
   width: 100%;
   height: 100vh;
   align-items: center;
+  @media screen and (max-width: 769px) {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: normal;
+    height: auto;
+  }
   .app {
     display: flex;
     width: 100%;
     height: 90%;
     justify-content: space-around;
+    @media screen and (max-width: 769px) {
+      margin-top: 20px;
+      display: flex;
+      width: 100%;
+      height: auto;
+      flex-direction: column;
+      align-items: center;
+    }
   }
 }

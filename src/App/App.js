@@ -1,34 +1,30 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef } from 'react';
 import { connect } from 'react-redux';
 import AddressesBar from '../AddressesBar';
-import { changeAddress } from '../store/reducers/reducerAddress';
+import { changeItem, addItem, deleteItem, changeData } from '../store/reducers/reducerAddress';
 import Ymap from '../Ymap';
 import './App.scss';
 
-const App = ({ reducerData, changePointsAddress }) => {
-  const [data, setData] = useState([]);
-
-  const map = useRef(null);
+const App = ({ reducerData, changeAddress, addAddress, deleteAddress, changeAddressData }) => {
   const inputAddress = useRef();
-
-  useEffect(() => {
-    setData((oldData) => {
-      oldData[reducerData.index] = {
-        address: reducerData.address,
-        coordinates: reducerData.coordinates,
-      };
-      return [...oldData];
-    });
-  }, [reducerData]);
 
   return (
     <div className="app">
-      <AddressesBar inputAddress={inputAddress} data={data} setData={setData} />
-      <Ymap map={map} inputAddress={inputAddress} changePointsAddress={changePointsAddress} data={data} />
+      <AddressesBar
+        inputAddress={inputAddress}
+        data={reducerData}
+        addAddress={addAddress}
+        deleteAddress={deleteAddress}
+        changeAddressData={changeAddressData}
+      />
+      <Ymap inputAddress={inputAddress} changeAddress={changeAddress} data={reducerData} />
     </div>
   );
 };
 
 export default connect((reducerData) => ({ reducerData: reducerData.reducerData.data }), {
-  changePointsAddress: changeAddress,
+  changeAddress: changeItem,
+  addAddress: addItem,
+  deleteAddress: deleteItem,
+  changeAddressData: changeData,
 })(App);
